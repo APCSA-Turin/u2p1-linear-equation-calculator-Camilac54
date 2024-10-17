@@ -13,10 +13,10 @@ public class LinearCalculator{
     //For example, "(1,2)" and "(3,4)" would be two parameter values 
     //You will have to parse the string into 4 integers, representing the 2 points.
     public LinearCalculator(String point1, String point2){ // <--add 2 string parameters to this constructor
-        int breakPt1 = point1.indexOf(",");
-        x1 = Integer.parseInt(point1.substring(1, breakPt1));
-        y1 = Integer.parseInt(point1.substring(breakPt1 + 1, point1.length() - 1));
-        int breakPt2 = point2.indexOf(",");
+        int breakPt1 = point1.indexOf(","); //Idenfities the comma in the first coordinate, allowing a separation between x and y values
+        x1 = Integer.parseInt(point1.substring(1, breakPt1)); // Finds the x value in the coordinate and turns it from a String to a number using parseInt
+        y1 = Integer.parseInt(point1.substring(breakPt1 + 1, point1.length() - 1)); // Finds the y value in the coordinate and turns it from a String to a number using parseInt
+        int breakPt2 = point2.indexOf(","); // 
         x2 = Integer.parseInt(point2.substring(1, breakPt2));
         y2 = Integer.parseInt(point2.substring(breakPt2 + 1, point2.length() - 1));
     }
@@ -61,20 +61,25 @@ public class LinearCalculator{
     //distance() -> returns a double. 
     //calculates the distance between the two points to the nearest HUNDREDTH and returns the value.
     public double distance(){
-        return 0.0;
+        double distance = Math.sqrt((double)Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2));
+        return Math.round(distance * 100.0) / 100.0;
+    }
 
     //yInt() -> returns a double.
     //calculates the y intercept of the equation and returns the value to the nearest HUNDREDTH
     //if y-int if undefined, should return -999.99
-    public double yInt(){
-        return 1.0;
+    public double yInt() {
+        double slope = (double) (y2 - y1) / (double) (x2 - x1);
+        double yInt = y1 - (slope * x1);
+        return yInt;
     }
 
     //slope() -> returns a double. 
     //calculates the slope of the equations and returns the value to the nearest HUNDREDTH
     //if slope is undefined, should return -999.99
     public double slope(){
-        return 1.0;
+        double slope = (y2 - y1) / (x2 - x1);
+        return slope;
     }
 
     //equations() -> returns a String.
@@ -96,8 +101,8 @@ public class LinearCalculator{
     //this method is tested but you can also call it in your main method if gradle tests are 
     //not working. 
     public String printInfo(){
-        String str = "The two points are: (" + /*insert var here*/ + "," +/*insert var here*/  + ")";
-        str += " and " + "(" + /*insert var here*/ + "," + /*insert var here*/ + ")";
+        String str = "The two points are: (" + x1 + "," + y1  + ")";
+        str += " and " + "(" + x2 + "," + y2 + ")";
         str += "\nThe equation of the line between these points is: " ;
         str += "\nThe slope of this line is: ";
         str += "\nThe y-intercept of the line is: ";
@@ -105,5 +110,4 @@ public class LinearCalculator{
  
         return str;
     }
-}
 }
