@@ -2,10 +2,10 @@ package com.example.project;
 public class LinearCalculator{
     //INSTANCE VARIABLES 
     //4 INTEGER variables (name them: x1,x2,y1,y2) 
-    private int x1;
-    private int x2;
-    private int y1;
-    private int y2;
+    private int x1; // Private variable representing the first x value
+    private int x2; // Private variable representing the first y value
+    private int y1; // Private variable representing the second x value
+    private int y2; // Private variable representing the second y value
 
 
     //CONSTRUCTOR
@@ -97,37 +97,38 @@ public class LinearCalculator{
     public String equation(){
         double slopeVal = slope();
         if (slopeVal == -999.99) { // This conditonal makes sure the slope is not undefined
-            return "undefined";
+            return "undefined"; // Returns undefined if the conditonal is true
         }
         
-        double yInt = yInt();
-        if (yInt == 0.0) {
-            return "y=" + slopeVal + "x";
-        } else if (slopeVal == 0.0) {
-            return "y=" + yInt;
-        } else if (yInt <= -1) {
-            return "y=" + slopeVal + "x" + yInt;
+        double yInt = yInt(); // sets the value of the method yInt() to a variable here named yInt
+        if (yInt == 0.0) { // To check if we need to remove the yInt part of the equation, or in other words if yInt is 0
+            return "y=" + slopeVal + "x"; // Returns the equation without yInt if the conditional is true
+        } else if (slopeVal == 0.0) { // If the first conditional isn't true, it checks if the slope is 0 now
+            return "y=" + yInt; // Returns the equation without the slope and x if the conditonal is true
+        } else if (yInt <= -1) { // If the first two conditonals aren't true, it checks if yInt is negative to remove the + sign in the equation
+            return "y=" + slopeVal + "x" + yInt; // Returns the equation without the + sign if the conditional is true
         }
-        return "y=" + slopeVal + "x" + "+" + yInt;
+
+        return "y=" + slopeVal + "x" + "+" + yInt; // If none of those conditonals is true, it returns y=mx+b with the proper values
     }
 
 
     //roundedToHundredth(double x)-> returns double
     //calculates the input to the nearest hundredth and returns that value
     public double roundedToHundredth(double x){
-        return Math.round(x * 100.0) / 100.0;
+        return Math.round(x * 100.0) / 100.0; // Rounds x by using the Math.round method, learned through https://stackoverflow.com/questions/246193/how-do-i-round-a-number-in-javascript
     }
 
     //printInfo() -> returns a string of information
     //this method is tested but you can also call it in your main method if gradle tests are 
     //not working. 
     public String printInfo(){
-        String str = "The two points are: (" + x1 + "," + y1  + ")";
-        str += " and " + "(" + x2 + "," + y2 + ")";
-        str += "\nThe equation of the line between these points is: " + equation();
-        str += "\nThe slope of this line is: " + slope();
-        str += "\nThe y-intercept of the line is: " + yInt();
-        str += "\nThe distance between the two points is: " + distance();
-        return str;
+        String str = "The two points are: (" + x1 + "," + y1  + ")"; // Initializes a String variable named str with the points (x1, y1)
+        str += " and " + "(" + x2 + "," + y2 + ")"; // Adds the points (x2, y2) to the string
+        str += "\nThe equation of the line between these points is: " + equation(); // Adds (with a space using \n) the equation of the points to the string
+        str += "\nThe slope of this line is: " + slope(); // Adds (with a space using \n) the slope of the "line" created by the points
+        str += "\nThe y-intercept of the line is: " + yInt(); // Adds (with a space using \n) the y intercept of the line
+        str += "\nThe distance between the two points is: " + distance(); // Adds (with a space using \n) the distance between the points
+        return str; // Returns the string with all the added information
     }
 }
