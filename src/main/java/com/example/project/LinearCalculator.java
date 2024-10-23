@@ -72,6 +72,7 @@ public class LinearCalculator{
         if (x2 == x1) { // This conditional statement makes sure the yIntercept is not undefined, and if it is it will return -999.99
             return -999.99; // Returns -999.99 if conditonal statement is true
         }
+
         double slope = slope(); // Using the slope method to add to a variable named slope for future use
         double yInt = y1 - (slope * x1); // Finds the y intercept by subtracting the first y by the slope times the first x
         return Math.round(yInt * 100.0) / 100.0; // Rounds the value of the y intercept we found before to the nearest hundreth and returns it
@@ -83,6 +84,9 @@ public class LinearCalculator{
     public double slope(){
         double yVal = (double) y2 - y1; // Finds the "top" half of the slope equation and makes the value a double, this variable is yVal
         double xVal = (double) x2 - x1; // Finds the "bottom" half of the slope equation and makes the value a double, this variable is xVal 
+        if (x2 == x1) {
+            return -999.99;
+        }
         return Math.round((yVal / xVal) * 100.0) / 100.0; // Rounds the value of the yVal / xVal to the nearest hundreth and returns it
     }
 
@@ -92,11 +96,19 @@ public class LinearCalculator{
     //HINT: You may need other custom methods to decrease the amount of code in the equations() method
     public String equation(){
         double slopeVal = slope();
-        if (slopeVal == -999.99) { // This conditonal 
+        if (slopeVal == -999.99) { // This conditonal makes sure the slope is not undefined
             return "undefined";
         }
+        
         double yInt = yInt();
-        return "y = " + slopeVal + "x" + " + " + yInt;
+        if (yInt == 0.0) {
+            return "y=" + slopeVal + "x";
+        } else if (slopeVal == 0.0) {
+            return "y=" + yInt;
+        } else if (yInt <= -1) {
+            return "y=" + slopeVal + "x" + yInt;
+        }
+        return "y=" + slopeVal + "x" + "+" + yInt;
     }
 
 
